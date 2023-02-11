@@ -6,15 +6,16 @@ import {
   FormLabel,
   Heading,
   Input,
-  Link,
   Stack,
   Image,
   Text,
+  Link
 } from "@chakra-ui/react";
+import { Link as ReachLink } from "react-router-dom";
 
 const SignupPage = () => {
   return (
-    <Stack minH={"90vh"} direction={{ base: "column", md: "row" }}>
+    <Stack minH={"92vh"} direction={{ base: "column", md: "row" }}>
       <Flex p={8} flex={1} align={"center"} justify={"center"}>
         <Stack spacing={4} w={"full"} maxW={"md"}>
           <Heading fontSize={"2xl"}>Sign up to your account</Heading>
@@ -37,7 +38,10 @@ const SignupPage = () => {
               justify={"flex-start"}
             >
               <Text>
-                Already a User? <Link color={"blue.500"}>Click here</Link>
+                Already a User?{" "}
+                <Link as={ReachLink} to="/login" color="blue.500">
+                  Click here
+                </Link>
               </Text>
             </Stack>
             <Button colorScheme={"blue"} variant={"solid"}>
