@@ -54,10 +54,16 @@ const AuthNavbar = () => {
               {/* {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))} */}
-              <Box>
-                <Link to="/signup">SignUp </Link>
+              <Box
+                fontWeight={"500"}
+                color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
+              >
+                <Link to="/signup">Signup </Link>
               </Box>
-              <Box>
+              <Box
+                fontWeight={"500"}
+                color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
+              >
                 <Link to="/login">Login </Link>
               </Box>
             </HStack>
@@ -107,10 +113,16 @@ const AuthNavbar = () => {
               {/* {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
               ))} */}
-              <Box>
-                <Link to="/signup">SignUp </Link>
+              <Box
+                fontWeight={"500"}
+                color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
+              >
+                <Link to="/signup">Signup </Link>
               </Box>
-              <Box>
+              <Box
+                fontWeight={"500"}
+                color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
+              >
                 <Link to="/login">Login </Link>
               </Box>
             </Stack>

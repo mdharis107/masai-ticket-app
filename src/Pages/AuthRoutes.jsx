@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Bookmark from "./Bookmark";
-import HomePage from "./HomePage";
+import LoginPage from "./LoginPage";
+import SignupPage from "./SignupPage";
 
 const AuthRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/bookmark" element={<Bookmark />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Routes>
   );
 };
