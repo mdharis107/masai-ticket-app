@@ -134,12 +134,18 @@ const HomePage = () => {
         mt={10}
       >
         <Flex gap={5}>
-          <Select bg={"#FFF"} placeholder="Sort by Date">
+          <Select
+            bg={colorMode === "light" ? "#FFF" : "whiteAlpha.200"}
+            placeholder="Sort by Date"
+          >
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
             <option value="option3">Option 3</option>
           </Select>
-          <Select bg={"#FFF"} placeholder="Filter by Category" >
+          <Select
+            bg={colorMode === "light" ? "#FFF" : "whiteAlpha.200"}
+            placeholder="Filter by Category"
+          >
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
             <option value="option3">Option 3</option>
