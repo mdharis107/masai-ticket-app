@@ -20,14 +20,23 @@ import {
   Textarea,
   Stack,
   Badge,
+  Tooltip,
+  chakra,
 } from "@chakra-ui/react";
-import React from "react";
-import { BsPeopleFill } from "react-icons/bs";
+import React, { useState } from "react";
+import {
+  BsPeopleFill,
+  BsTag,
+  BsFillCalendar2Fill,
+  BsBookmark,
+  BsBookmarkFill,
+} from "react-icons/bs";
 import { Icon } from "@chakra-ui/react";
 
 const HomePage = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [marked, setMarked] = useState(false);
 
   return (
     <>
@@ -56,6 +65,7 @@ const HomePage = () => {
             bg={colorMode === "light" ? "#1F2937" : "#FFF"}
             onClick={onOpen}
             _hover={{ opacity: 0.8 }}
+            boxShadow={"md"}
           >
             CREATE
           </Button>
@@ -144,33 +154,68 @@ const HomePage = () => {
             <Flex gap={5}>
               <Box
                 fontWeight={400}
-                color={"#6B7280"}
+                color={colorMode === "light" ? "#6B7280" : "gray.300"}
                 display={"flex"}
                 alignItems={"center"}
                 gap={2}
               >
-                <Icon fontWeight={600} color={"gray.300"} as={BsPeopleFill} />
+                <Icon
+                  fontWeight={600}
+                  color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                  as={BsPeopleFill}
+                />
                 Haris
               </Box>
               <Box
                 fontWeight={400}
-                color={"#6B7280"}
+                color={colorMode === "light" ? "#6B7280" : "gray.300"}
                 display={"flex"}
                 alignItems={"center"}
                 gap={2}
               >
-                <Icon fontWeight={600} color={"#6B7280"} as={BsPeopleFill} />
-                Haris
+                <Icon
+                  fontWeight={600}
+                  color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                  as={BsTag}
+                />
+                MISSED EVALUATION RECORDING
+              </Box>
+              <Box display={"flex"} alignItems={"center"}>
+                <Tooltip
+                  label="Bookmark"
+                  bg="transparent"
+                  placement={"top"}
+                  color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                  fontSize={"12px"}
+                >
+                  <chakra.a href={"#"} display={"flex"}>
+                    <Button
+                      onClick={() => setMarked(!marked)}
+                      _hover={{ bgColor: "none" }}
+                    >
+                      <Icon
+                        fontSize={"18px"}
+                        fontWeight={600}
+                        color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                        as={marked ? BsBookmarkFill : BsBookmark}
+                      />
+                    </Button>
+                  </chakra.a>
+                </Tooltip>
               </Box>
             </Flex>
             <Box
               fontWeight={400}
-              color={"#6B7280"}
+              color={colorMode === "light" ? "#6B7280" : "gray.300"}
               display={"flex"}
               alignItems={"center"}
               gap={2}
             >
-              <Icon fontWeight={600} color={"#6B7280"} as={BsPeopleFill} />
+              <Icon
+                fontWeight={600}
+                color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                as={BsFillCalendar2Fill}
+              />
               <Text>Last Update 8 Oct, 22 - 5:23 pm</Text>
             </Box>
           </Flex>

@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       {/* <AuthNavbar /> */}
       {/* <AuthRoutes /> */}
-      <MainNavbar/>
+      <MainNavbar />
       <MainRoute />
     </div>
   );
