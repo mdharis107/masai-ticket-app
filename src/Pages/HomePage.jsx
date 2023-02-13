@@ -128,6 +128,30 @@ const HomePage = () => {
         bg={useColorModeValue("gray.100", "gray.900")}
         w={"70%"}
         m={"auto"}
+        p={8}
+        borderRadius={5}
+        // border={"1px solid red"}
+        mt={10}
+      >
+        <Flex gap={5}>
+          <Select bg={"#FFF"} placeholder="Sort by Date">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </Select>
+          <Select bg={"#FFF"} placeholder="Filter by Category" >
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </Select>
+        </Flex>
+      </Stack>
+
+      <Stack
+        boxShadow="rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
+        bg={useColorModeValue("gray.100", "gray.900")}
+        w={"70%"}
+        m={"auto"}
         p={10}
         borderRadius={5}
         // border={"1px solid red"}
