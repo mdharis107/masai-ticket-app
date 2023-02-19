@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Flex,
@@ -9,11 +9,21 @@ import {
   Stack,
   Image,
   Text,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import { Link as ReachLink } from "react-router-dom";
 
 const SignupPage = () => {
+  const [data, setData] = useState({});
+
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
   return (
     <Stack minH={"92vh"} direction={{ base: "column", md: "row" }}>
       <Flex p={8} flex={1} align={"center"} justify={"center"}>
@@ -21,15 +31,15 @@ const SignupPage = () => {
           <Heading fontSize={"2xl"}>Sign up to your account</Heading>
           <FormControl id="name">
             <FormLabel>Full Name</FormLabel>
-            <Input type="text" />
+            <Input name="name" onChange={handleChange} type="text" />
           </FormControl>
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
-            <Input type="email" />
+            <Input name="email" onChange={handleChange} type="email" />
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
-            <Input type="password" />
+            <Input name="password" onChange={handleChange} type="password" />
           </FormControl>
           <Stack spacing={6}>
             <Stack

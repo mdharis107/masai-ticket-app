@@ -7,10 +7,10 @@ import MainRoute from "./Pages/MainRoute";
 function App() {
   return (
     <div className="App">
-      {/* <AuthNavbar /> */}
-      {/* <AuthRoutes /> */}
-      <MainNavbar />
-      <MainRoute />
+      <AuthNavbar />
+      <AuthRoutes />
+      {/* <MainNavbar /> */}
+      {/* <MainRoute /> */}
     </div>
   );
 }
