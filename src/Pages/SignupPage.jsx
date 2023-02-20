@@ -33,9 +33,9 @@ const SignupPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(signup(data)).then((res) => {
-      // console.log(res.payload);
+      console.log(res.payload);
       {
-        res.payload.value
+        res.payload.msg
           ? toast({
               title: "Account created.",
               description: res.payload.msg,
@@ -44,7 +44,7 @@ const SignupPage = () => {
               isClosable: true,
             })
           : toast({
-              title: res.payload.msg,
+              title: res.payload.message,
               status: "error",
               duration: 3000,
               isClosable: true,

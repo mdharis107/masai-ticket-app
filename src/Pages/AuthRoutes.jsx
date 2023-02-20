@@ -1,15 +1,15 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import LoginPage from "./LoginPage";
-import SignupPage from "./SignupPage";
+// import React from "react";
+// import { Route, Routes } from "react-router-dom";
+// import LoginPage from "./LoginPage";
+// import SignupPage from "./SignupPage";
 
-const AuthRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/signup" element={<SignupPage />} />
-      <Route path="/login" element={<LoginPage />} />
-    </Routes>
-  );
-};
+// const AuthRoutes = () => {
+//   return (
+//     <Routes>
+//       <Route path="/signup" element={<SignupPage />} />
+//       <Route path="/login" element={<LoginPage />} />
+//     </Routes>
+//   );
+// };
 
-export default AuthRoutes;
+// export default AuthRoutes;

@@ -9,13 +9,19 @@ import {
   Stack,
   Image,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 // import { Link as ReachLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/auth/action";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [data, setData] = useState({});
+  const loading = useSelector((state) => {
+    return state.AuthReducer.isAuthLoading;
+  });
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -26,27 +32,31 @@ const LoginPage = () => {
       [name]: value,
     });
   };
-
+  // console.log(loading)
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(data);
     dispatch(login(data)).then((res) => {
-      console.log(res.payload);
+      // console.log(res.payload);
       {
         res.payload.msg
-          ? toast({
-              title: res.payload.msg,
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-            })
+          ? toast(
+              {
+                title: res.payload.msg,
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+              },
+              navigate("/")
+            )
           : toast({
               title: res.payload.message,
-              status: "success",
+              status: "warning",
               duration: 3000,
               isClosable: true,
             });
       }
+      // navigate("/")
     });
   };
 
@@ -75,7 +85,7 @@ const LoginPage = () => {
             </FormControl>
             <Stack mt={5} spacing={6}>
               <Button type="submit" colorScheme={"blue"} variant={"solid"}>
-                Log in
+                {loading ? <Spinner /> : " Log in"}
               </Button>
             </Stack>
           </form>

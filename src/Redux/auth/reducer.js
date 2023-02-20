@@ -27,6 +27,7 @@ const reducer = (oldState = initialState, action) => {
         ...oldState,
         isError: true,
         isAuth: false,
+        isAuthLoading:false,
         token: "",
       };
     default:

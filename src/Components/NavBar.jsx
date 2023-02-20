@@ -21,16 +21,15 @@ import {
 import {
   HamburgerIcon,
   CloseIcon,
-  AddIcon,
   MoonIcon,
   SunIcon,
 } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const AuthNavbar = () => {
-  const app = useSelector((state)=>{
-    return state.AuthReducer.isAuth
+const NavBar = () => {
+  const isAuth = useSelector((state) => {
+    return state.AuthReducer.isAuth;
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
@@ -62,14 +61,19 @@ const AuthNavbar = () => {
                 fontWeight={"500"}
                 color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
               >
-                <Link to="/signup">Signup </Link>
+                {isAuth ? (
+                  <Link to="/">Home </Link>
+                ) : (
+                  <Link to="/signup">Signup </Link>
+                )}
+                {/* <Link to="/signup">Signup </Link> */}
               </Box>
               <Box
                 fontWeight={"500"}
                 color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
               >
-                {app ? (
-                  <Link to="/"> Home </Link>
+                {isAuth ? (
+                  <Link to="/bookmark"> Bookmark </Link>
                 ) : (
                   <Link to="/login">Login </Link>
                 )}
@@ -126,13 +130,21 @@ const AuthNavbar = () => {
                 fontWeight={"500"}
                 color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
               >
-                <Link to="/signup">Signup </Link>
+                {isAuth ? (
+                  <Link to="/">Home </Link>
+                ) : (
+                  <Link to="/signup">Signup </Link>
+                )}
               </Box>
               <Box
                 fontWeight={"500"}
                 color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
               >
-                <Link to="/login">Login </Link>
+                {isAuth ? (
+                  <Link to="/bookmark"> Bookmark </Link>
+                ) : (
+                  <Link to="/login">Login </Link>
+                )}
               </Box>
             </Stack>
           </Box>
@@ -142,4 +154,4 @@ const AuthNavbar = () => {
   );
 };
 
-export default AuthNavbar;
+export default NavBar;
