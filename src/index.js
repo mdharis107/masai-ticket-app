@@ -12,13 +12,13 @@ import { store } from "./redux/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <ChakraProvider>
+    <ChakraProvider>
+      <BrowserRouter>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <App />
-      </ChakraProvider>
-    </BrowserRouter>
-     </Provider>
+      </BrowserRouter>
+    </ChakraProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -9,11 +9,12 @@ export const signup = (payload) => (dispatch) => {
       return dispatch({
         type: ele.USER_SIGNUP_SUCCESS,
         payload: res.data,
-      }).catch((err) => {
-        return dispatch({
-          type: ele.USER_SIGNUP_FAILURE,
-          payload: err,
-        });
+      });
+    })
+    .catch((err) => {
+      return dispatch({
+        type: ele.USER_SIGNUP_FAILURE,
+        payload: err,
       });
     });
 };
