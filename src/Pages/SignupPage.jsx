@@ -19,7 +19,7 @@ import { signup } from "../redux/auth/action";
 const SignupPage = () => {
   const [data, setData] = useState({});
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const toast = useToast();
 
   const handleChange = (e) => {
@@ -35,23 +35,25 @@ const SignupPage = () => {
     dispatch(signup(data)).then((res) => {
       console.log(res.payload);
       {
-        res.payload.msg
-          ? toast({
-              title: "Account created.",
-              description: res.payload.msg,
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-            })
+        res.payload.value
+          ? toast(
+              {
+                title: "Account created.",
+                description: res.payload.msg,
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+              },
+              navigate("/login")
+            )
           : toast({
-              title: res.payload.message,
+              title: res.payload.msg,
               status: "error",
               duration: 3000,
               isClosable: true,
             });
       }
-      navigate("/login")
-    })
+    });
   };
 
   return (
