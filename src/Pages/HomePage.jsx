@@ -32,11 +32,29 @@ import {
   BsBookmarkFill,
 } from "react-icons/bs";
 import { Icon } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 
 const HomePage = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [marked, setMarked] = useState(false);
+  const [ticket, setTicket] = useState({});
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    
+
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTicket({
+      ...ticket,
+      [name]: value,
+    });
+  };
 
   return (
     <>
@@ -78,48 +96,59 @@ const HomePage = () => {
           motionPreset="slideInBottom"
         >
           <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Create your Ticket</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody pb={6}>
-              <FormControl>
-                <FormLabel>CATEGORY</FormLabel>
-                <Select w={"50%"} placeholder="Select">
-                  <option value="Withdrawal">Withdrawal</option>
-                  <option value="Missed Evaluation">Missed Evaluation</option>
-                  <option value="Leave">Leave</option>
-                  <option value="Query">Query</option>
-                  <option value="Electives">Electives</option>
-                </Select>
-              </FormControl>
+          <form action="" onSubmit={handleSubmit}>
+            <ModalContent>
+              <ModalHeader>Create your Ticket</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody pb={6}>
+                <FormControl>
+                  <FormLabel>CATEGORY</FormLabel>
+                  <Select
+                    name="category"
+                    onChange={handleChange}
+                    w={"50%"}
+                    placeholder="Select"
+                  >
+                    <option value="Withdrawal">Withdrawal</option>
+                    <option value="Missed Evaluation">Missed Evaluation</option>
+                    <option value="Leave">Leave</option>
+                    <option value="Query">Query</option>
+                    <option value="Electives">Electives</option>
+                  </Select>
+                </FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel>TITLE</FormLabel>
-                <Input />
-              </FormControl>
+                <FormControl mt={4}>
+                  <FormLabel>TITLE</FormLabel>
+                  <Input name="title" onChange={handleChange} />
+                </FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel>MESSAGE</FormLabel>
-                <Textarea placeholder="Type your message here" />
-              </FormControl>
-            </ModalBody>
+                <FormControl mt={4}>
+                  <FormLabel>MESSAGE</FormLabel>
+                  <Textarea
+                    name="message"
+                    onChange={handleChange}
+                    placeholder="Type your message here"
+                  />
+                </FormControl>
+              </ModalBody>
 
-            <ModalFooter justifyContent={"left"}>
-              <Button
-                letterSpacing={"widest"}
-                fontWeight={500}
-                fontSize={"12px"}
-                p={"5px 20px"}
-                color={colorMode === "light" ? "#FFF" : "#1F2937"}
-                bg={colorMode === "light" ? "#1F2937" : "#FFF"}
-                opacity={0.8}
-                _hover={{ opacity: 1 }}
-              >
-                CREATE TICKET
-              </Button>
-              {/* <Button onClick={onClose}>Cancel</Button> */}
-            </ModalFooter>
-          </ModalContent>
+              <ModalFooter justifyContent={"left"}>
+                <Button
+                  type="submit"
+                  letterSpacing={"widest"}
+                  fontWeight={500}
+                  fontSize={"12px"}
+                  p={"5px 20px"}
+                  color={colorMode === "light" ? "#FFF" : "#1F2937"}
+                  bg={colorMode === "light" ? "#1F2937" : "#FFF"}
+                  opacity={0.8}
+                  _hover={{ opacity: 1 }}
+                >
+                  CREATE TICKET
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </form>
         </Modal>
       </Flex>
 

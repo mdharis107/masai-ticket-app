@@ -21,6 +21,7 @@ const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
+  
 
   const handleChange = (e) => {
     const { value, name } = e.target;
