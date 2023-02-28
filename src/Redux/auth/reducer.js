@@ -30,6 +30,14 @@ const reducer = (oldState = initialState, action) => {
         isAuthLoading:false,
         token: "",
       };
+    // case ele.USER_LOGOUT:
+    //   return {
+    //     ...oldState,
+    //     isError:false,
+    //     isAuth:false,
+    //     isAuthLoading:false,
+    //     token:""
+    //   }
     default:
       return oldState;
   }

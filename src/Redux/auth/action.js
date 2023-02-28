@@ -36,3 +36,7 @@ export const login = (payload) => (dispatch) => {
       });
     });
 };
+
+// export const logout = (payload) => (dispatch) => {
+//   return dispatch({ type: ele.USER_LOGOUT});
+// };

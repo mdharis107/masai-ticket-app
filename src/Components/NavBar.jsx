@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Flex,
@@ -19,16 +19,36 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "../redux/auth/action";
 
 const NavBar = () => {
   const isAuth = useSelector((state) => {
     return state.AuthReducer.isAuth;
   });
+  const UserName = useSelector((state) => {
+    if (isAuth) {
+      return state.AuthReducer.token.data.name;
+    }
+  });
+  const log = useSelector((state) => {
+    return state.AuthReducer;
+  });
+  
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+  const navigate = useNavigate()
 
+  const handleLogout = () => {
+    log.isAuth = false;
+    log.token = "";
+    console.log(log);
+    navigate("/login")
+  };
+  // useEffect(() => {}, [handleLogout]);
+
+  // console.log(isAuth);
   return (
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={10}>
@@ -105,13 +125,13 @@ const NavBar = () => {
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>{UserName ? UserName : ""}</p>
                   </Center>
                   <br />
                   <MenuDivider />
                   <MenuItem>Your Servers</MenuItem>
                   <MenuItem>Account Settings</MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
               </Menu>
             ) : (
