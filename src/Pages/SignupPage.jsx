@@ -21,7 +21,6 @@ const SignupPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
-  
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -57,6 +56,8 @@ const SignupPage = () => {
     });
   };
 
+  
+
   return (
     <Stack minH={"92vh"} direction={{ base: "column", md: "row" }}>
       <Flex p={8} flex={1} align={"center"} justify={"center"}>
@@ -88,7 +89,11 @@ const SignupPage = () => {
                   </Link>
                 </Text>
               </Stack>
-              <Button type={"submit"} colorScheme={"blue"} variant={"solid"}>
+              <Button
+                type={"submit"}
+                colorScheme={"blue"}
+                variant={"solid"}
+              >
                 Sign up
               </Button>
             </Stack>
