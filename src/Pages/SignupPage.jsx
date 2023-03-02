@@ -56,7 +56,7 @@ const SignupPage = () => {
     });
   };
 
-  
+  // console.log(data)
 
   return (
     <Stack minH={"92vh"} direction={{ base: "column", md: "row" }}>
@@ -74,7 +74,7 @@ const SignupPage = () => {
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input name="password" onChange={handleChange} type="password" />
+              <Input placeholder="Enter min of 8 characters" name="password" onChange={handleChange} type="password" />
             </FormControl>
             <Stack spacing={6}>
               <Stack
@@ -90,6 +90,9 @@ const SignupPage = () => {
                 </Text>
               </Stack>
               <Button
+                isDisabled={
+                  data.name && data.email && data.password && data.password.length >=8 ? false : true
+                }
                 type={"submit"}
                 colorScheme={"blue"}
                 variant={"solid"}
