@@ -33,7 +33,7 @@ import {
 } from "react-icons/bs";
 import { Icon } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTickets } from "../redux/app/action";
+import { getTickets, postTickets } from "../redux/app/action";
 
 const HomePage = () => {
   const { colorMode } = useColorMode();
@@ -43,22 +43,29 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const [sort, setSort] = useState("asc");
 
+  //passing user ID - GET
   const userId = useSelector((state) => {
     return state.AuthReducer.token.data._id;
   });
 
+  //passing TOKEN for Authentication
   const token = useSelector((state) => {
     return state.AuthReducer.token.token;
   });
 
+  //To GET TICKETS of user
   const userTickets = useSelector((state) => {
     return state.AppReducer.ticket;
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    // const payload = ticket;
+    const payload = ticket;
     console.log(ticket);
+    dispatch(postTickets(token, payload)).then((res) => {
+      console.log(res);
+    });
   };
 
   const handleChange = (e) => {
@@ -70,17 +77,16 @@ const HomePage = () => {
   };
 
   const handleSort = (e) => {
-  //  console.log(e.target.value) 
-   setSort(e.target.value)
+    //  console.log(e.target.value)
+    setSort(e.target.value);
   };
 
   useEffect(() => {
-    dispatch(getTickets(token, userId,sort));
-  }, [userId, dispatch, token,sort]);
-  // console.log(userId, token);
+    dispatch(getTickets(token, userId, sort));
+  }, [userId, dispatch, token, sort]);
+  console.log(userId, token);
   // console.log(userTickets);
   // console.log(sort);
-
 
   return (
     <>
