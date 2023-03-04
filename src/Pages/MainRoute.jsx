@@ -8,9 +8,9 @@ import LoginPage from "./LoginPage";
 const MainRoute = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/bookmark" element={<Bookmark />} />
-      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
     </Routes>
   );

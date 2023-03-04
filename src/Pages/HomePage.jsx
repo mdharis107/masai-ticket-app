@@ -41,8 +41,9 @@ const HomePage = () => {
   const [marked, setMarked] = useState(false);
   const [ticket, setTicket] = useState({});
   const dispatch = useDispatch();
+  const [sort, setSort] = useState("asc");
 
-  const allTickets = useSelector((state) => {
+  const userId = useSelector((state) => {
     return state.AuthReducer.token.data._id;
   });
 
@@ -68,11 +69,18 @@ const HomePage = () => {
     });
   };
 
+  const handleSort = (e) => {
+  //  console.log(e.target.value) 
+   setSort(e.target.value)
+  };
+
   useEffect(() => {
-    dispatch(getTickets(token, allTickets));
-  }, [allTickets, dispatch, token]);
-  console.log(allTickets, token);
-  console.log(userTickets);
+    dispatch(getTickets(token, userId,sort));
+  }, [userId, dispatch, token,sort]);
+  // console.log(userId, token);
+  // console.log(userTickets);
+  // console.log(sort);
+
 
   return (
     <>
@@ -128,11 +136,11 @@ const HomePage = () => {
                     w={"50%"}
                     placeholder="Select"
                   >
-                    <option value="Withdrawal">Withdrawal</option>
-                    <option value="Missed Evaluation">Missed Evaluation</option>
-                    <option value="Leave">Leave</option>
-                    <option value="Query">Query</option>
-                    <option value="Electives">Electives</option>
+                    <option value="WITHDRAWAL">WITHDRAWAL</option>
+                    <option value="MISSED EVALUATION">MISSED EVALUATION</option>
+                    <option value="LEAVE">LEAVE</option>
+                    <option value="QUERY">QUERY</option>
+                    <option value="ELECTIVES">ELECTIVES</option>
                   </Select>
                 </FormControl>
 
@@ -183,12 +191,13 @@ const HomePage = () => {
       >
         <Flex gap={5}>
           <Select
+            value={sort}
+            onChange={handleSort}
             bg={colorMode === "light" ? "#FFF" : "whiteAlpha.200"}
             placeholder="Sort by Date"
           >
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+            <option value="asc">Asc</option>
+            <option value="desc">Desc</option>
           </Select>
           <Select
             bg={colorMode === "light" ? "#FFF" : "whiteAlpha.200"}
@@ -306,6 +315,7 @@ const HomePage = () => {
             </Stack>
           );
         })}
+
         {/* <Stack
           borderRadius={2}
           boxShadow="rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;"

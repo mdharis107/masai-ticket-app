@@ -47,7 +47,7 @@ const LoginPage = () => {
                 duration: 3000,
                 isClosable: true,
               },
-              navigate("/")
+              navigate("/home")
             )
           : toast({
               title: res.payload.message,

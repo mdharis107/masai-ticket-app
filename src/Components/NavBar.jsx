@@ -77,9 +77,9 @@ const NavBar = () => {
                 color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
               >
                 {isAuth ? (
-                  <Link to="/">Home </Link>
+                  <Link to="/home">Home </Link>
                 ) : (
-                  <Link to="/signup">Signup </Link>
+                  <Link to="/">Signup </Link>
                 )}
                 {/* <Link to="/signup">Signup </Link> */}
               </Box>
@@ -189,9 +189,9 @@ const NavBar = () => {
                 color={colorMode === "light" ? "#6B7280" : "#FFFFFFEB"}
               >
                 {isAuth ? (
-                  <Link to="/">Home </Link>
+                  <Link to="/home">Home </Link>
                 ) : (
-                  <Link to="/signup">Signup </Link>
+                  <Link to="/">Signup </Link>
                 )}
               </Box>
               <Box
