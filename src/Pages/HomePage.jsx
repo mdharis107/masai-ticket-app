@@ -22,6 +22,7 @@ import {
   Badge,
   Tooltip,
   chakra,
+  Heading,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
@@ -34,6 +35,7 @@ import {
 import { Icon } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTickets, postTickets } from "../redux/app/action";
+import { useForceUpdate } from "framer-motion";
 
 const HomePage = () => {
   const { colorMode } = useColorMode();
@@ -42,6 +44,7 @@ const HomePage = () => {
   const [ticket, setTicket] = useState({});
   const dispatch = useDispatch();
   const [sort, setSort] = useState("asc");
+  const forceUpdate = useForceUpdate();
 
   //passing user ID - GET
   const userId = useSelector((state) => {
@@ -62,11 +65,14 @@ const HomePage = () => {
     e.preventDefault();
     // const payload = ticket;
     const payload = ticket;
-    console.log(ticket);
-    dispatch(postTickets(token, payload)).then((res) => {
-      console.log(res);
-    });
+    // console.log(ticket);
+
+    dispatch(postTickets(token, payload)).then((res) =>
+      getTickets(token, userId, sort)
+    );
   };
+
+  // console.log(userTickets.length);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -84,7 +90,8 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(getTickets(token, userId, sort));
   }, [userId, dispatch, token, sort]);
-  console.log(userId, token);
+
+  // console.log(userId, token);
   // console.log(userTickets);
   // console.log(sort);
 
@@ -226,190 +233,113 @@ const HomePage = () => {
         // border={"1px solid red"}
         mt={10}
       >
-        {userTickets?.map((ele) => {
-          return (
-            <Stack
-              borderRadius={2}
-              boxShadow="rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;"
-              p={5}
-            >
-              <Flex
-                direction={"row"}
-                justifyContent="space-between"
-                alignItems={"center"}
+        {userTickets.length > 0 ? (
+          userTickets?.map((ele) => {
+            return (
+              <Stack
+                borderRadius={2}
+                boxShadow="rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;"
+                p={5}
               >
-                <Text color={"#4F4CE5"} fontSize={"14px"} fontWeight={"600"}>
-                  {ele.title}
-                </Text>
-                <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
-                  RESOLVED
-                </Badge>
-              </Flex>
-
-              <Flex alignItems={"center"} justifyContent={"space-between"}>
-                <Flex gap={5}>
-                  <Box
-                    fontWeight={400}
-                    color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                    display={"flex"}
-                    alignItems={"center"}
-                    gap={2}
-                  >
-                    <Icon
-                      fontWeight={600}
-                      color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                      as={BsPeopleFill}
-                    />
-                    Haris
-                  </Box>
-                  <Box
-                    fontWeight={400}
-                    color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                    display={"flex"}
-                    alignItems={"center"}
-                    gap={2}
-                  >
-                    <Icon
-                      textTransform={"capitalize"}
-                      fontWeight={600}
-                      color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                      as={BsTag}
-                    />
-                    {ele.title}
-                  </Box>
-                  <Box display={"flex"} alignItems={"center"}>
-                    <Tooltip
-                      label="Bookmark"
-                      bg="transparent"
-                      placement={"top"}
-                      color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                      fontSize={"12px"}
-                    >
-                      <chakra.a href={"#"} display={"flex"}>
-                        <Button
-                          onClick={() => setMarked(!marked)}
-                          _hover={{ bgColor: "none" }}
-                        >
-                          <Icon
-                            fontSize={"18px"}
-                            fontWeight={600}
-                            color={
-                              colorMode === "light" ? "#6B7280" : "gray.300"
-                            }
-                            as={marked ? BsBookmarkFill : BsBookmark}
-                          />
-                        </Button>
-                      </chakra.a>
-                    </Tooltip>
-                  </Box>
-                </Flex>
-                <Box
-                  fontWeight={400}
-                  color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                  display={"flex"}
+                <Flex
+                  direction={"row"}
+                  justifyContent="space-between"
                   alignItems={"center"}
-                  gap={2}
                 >
-                  <Icon
-                    fontWeight={600}
-                    color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                    as={BsFillCalendar2Fill}
-                  />
-                  <Text>Last Update 8 Oct, 22 - 5:23 pm</Text>
-                </Box>
-              </Flex>
-            </Stack>
-          );
-        })}
+                  <Text color={"#4F4CE5"} fontSize={"14px"} fontWeight={"600"}>
+                    {ele.title}
+                  </Text>
+                  <Badge
+                    rounded="full"
+                    px="2"
+                    fontSize="0.8em"
+                    colorScheme="red"
+                  >
+                    RESOLVED
+                  </Badge>
+                </Flex>
 
-        {/* <Stack
-          borderRadius={2}
-          boxShadow="rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;"
-          p={5}
-        >
-          <Flex
-            direction={"row"}
-            justifyContent="space-between"
-            alignItems={"center"}
-          >
-            <Text color={"#4F4CE5"} fontSize={"14px"} fontWeight={"600"}>
-              Coding Revision Marks
-            </Text>
-            <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
-              RESOLVED
-            </Badge>
-          </Flex>
-
-          <Flex alignItems={"center"} justifyContent={"space-between"}>
-            <Flex gap={5}>
-              <Box
-                fontWeight={400}
-                color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                display={"flex"}
-                alignItems={"center"}
-                gap={2}
-              >
-                <Icon
-                  fontWeight={600}
-                  color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                  as={BsPeopleFill}
-                />
-                Haris
-              </Box>
-              <Box
-                fontWeight={400}
-                color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                display={"flex"}
-                alignItems={"center"}
-                gap={2}
-              >
-                <Icon
-                  fontWeight={600}
-                  color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                  as={BsTag}
-                />
-                MISSED EVALUATION RECORDING
-              </Box>
-              <Box display={"flex"} alignItems={"center"}>
-                <Tooltip
-                  label="Bookmark"
-                  bg="transparent"
-                  placement={"top"}
-                  color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                  fontSize={"12px"}
-                >
-                  <chakra.a href={"#"} display={"flex"}>
-                    <Button
-                      onClick={() => setMarked(!marked)}
-                      _hover={{ bgColor: "none" }}
+                <Flex alignItems={"center"} justifyContent={"space-between"}>
+                  <Flex gap={5}>
+                    <Box
+                      fontWeight={400}
+                      color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                      display={"flex"}
+                      alignItems={"center"}
+                      gap={2}
                     >
                       <Icon
-                        fontSize={"18px"}
                         fontWeight={600}
                         color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                        as={marked ? BsBookmarkFill : BsBookmark}
+                        as={BsPeopleFill}
                       />
-                    </Button>
-                  </chakra.a>
-                </Tooltip>
-              </Box>
-            </Flex>
-            <Box
-              fontWeight={400}
-              color={colorMode === "light" ? "#6B7280" : "gray.300"}
-              display={"flex"}
-              alignItems={"center"}
-              gap={2}
-            >
-              <Icon
-                fontWeight={600}
-                color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                as={BsFillCalendar2Fill}
-              />
-              <Text>Last Update 8 Oct, 22 - 5:23 pm</Text>
-            </Box>
-          </Flex>
-        </Stack> */}
+                      Haris
+                    </Box>
+                    <Box
+                      fontWeight={400}
+                      color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                      display={"flex"}
+                      alignItems={"center"}
+                      gap={2}
+                    >
+                      <Icon
+                        textTransform={"capitalize"}
+                        fontWeight={600}
+                        color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                        as={BsTag}
+                      />
+                      {ele.category}
+                    </Box>
+                    <Box display={"flex"} alignItems={"center"}>
+                      <Tooltip
+                        label="Bookmark"
+                        bg="transparent"
+                        placement={"top"}
+                        color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                        fontSize={"12px"}
+                      >
+                        <chakra.a href={"#"} display={"flex"}>
+                          <Button
+                            onClick={() => setMarked(!marked)}
+                            _hover={{ bgColor: "none" }}
+                          >
+                            <Icon
+                              fontSize={"18px"}
+                              fontWeight={600}
+                              color={
+                                colorMode === "light" ? "#6B7280" : "gray.300"
+                              }
+                              as={marked ? BsBookmarkFill : BsBookmark}
+                            />
+                          </Button>
+                        </chakra.a>
+                      </Tooltip>
+                    </Box>
+                  </Flex>
+                  <Box
+                    fontWeight={400}
+                    color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                    display={"flex"}
+                    alignItems={"center"}
+                    gap={2}
+                  >
+                    <Icon
+                      fontWeight={600}
+                      color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                      as={BsFillCalendar2Fill}
+                    />
+                    <Text>
+                      Last Update {ele.createdAt.substring(0, 10)} -{" "}
+                      {ele.createdAt.substring(11, 19)}
+                    </Text>
+                  </Box>
+                </Flex>
+              </Stack>
+            );
+          })
+        ) : (
+          <Heading>No Ticket has been Created</Heading>
+        )}
       </Stack>
     </>
   );

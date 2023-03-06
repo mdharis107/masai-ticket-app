@@ -40,7 +40,7 @@ export const postTickets = (token, payload) => (dispatch) => {
   // console.log(payload)
   dispatch({ type: ele.POST_TICKETS_REQUEST });
   return axios
-    .post("https://mock-15-backend.onrender.com/ticket/addTicket", payload, {
+    .post("http://localhost:8080/tickets/addTicket", payload, {
       headers: {
         Authorization: `${token}`,
       },
