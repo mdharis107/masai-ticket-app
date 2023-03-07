@@ -76,14 +76,12 @@ const HomePage = () => {
     // console.log(ticket);
     dispatch(postTickets(token, payload)).then((res) => {
       // console.log(res.payload.msg);
-      toast(
-        {
-          title: res.payload.msg,
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        }
-      )
+      toast({
+        title: res.payload.msg,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
       dispatch(getTickets(token, userId, sort));
     });
   };
@@ -113,6 +111,7 @@ const HomePage = () => {
 
   return (
     <>
+      {/* Header Section */}
       <Flex
         p={3}
         borderTop={1}
@@ -208,6 +207,7 @@ const HomePage = () => {
         </Modal>
       </Flex>
 
+      {/* Sorting Sections */}
       <Stack
         boxShadow="rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
         bg={useColorModeValue("gray.100", "gray.900")}
@@ -239,6 +239,7 @@ const HomePage = () => {
         </Flex>
       </Stack>
 
+      {/* Mapped ELements */}
       <Stack
         boxShadow="rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px"
         bg={useColorModeValue("gray.100", "gray.900")}

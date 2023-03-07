@@ -31,7 +31,7 @@ export const postTickets = (token, payload) => (dispatch) => {
       },
     })
     .then((res) => {
-      console.log(res);
+      // console.log(res);
      return dispatch({ type: ele.POST_TICKETS_SUCCESS, payload: res.data });
     })
     .catch((err) => {
