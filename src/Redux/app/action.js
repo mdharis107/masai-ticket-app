@@ -4,7 +4,7 @@ import axios from "axios";
 //GET Tickets
 export const getTickets = (token, user, order) => (dispatch) => {
   dispatch({ type: ele.GET_TICKET_REQUEST });
-  return axios
+  axios
     .get(`http://localhost:8080/tickets/${user}?sort=createdAt,${order}`, {
       headers: {
         Authorization: `${token}`,
@@ -20,21 +20,6 @@ export const getTickets = (token, user, order) => (dispatch) => {
 
 //POST TICKETS
 
-// export const addTicket = (token, payload) => (dispatch) => {
-//   dispatch({ type: ele.POST_TICKET_REQUEST });
-//   return axios
-//     .post(`http://localhost:8080/tickets/addTicket`,payload, {
-//       headers: {
-//         Authorization: `${token}`,
-//       },
-//     })
-//     .then((res) => {
-//       dispatch({ type: ele.POST_TICKET_SUCCESS, payload: res.data });
-//     })
-//     .catch((err) => {
-//       dispatch({ type: ele.POST_TICKET_FAILURE, payload: err });
-//     });
-// };
 
 export const postTickets = (token, payload) => (dispatch) => {
   // console.log(payload)
@@ -46,10 +31,10 @@ export const postTickets = (token, payload) => (dispatch) => {
       },
     })
     .then((res) => {
-      // console.log(res);
-      dispatch({ type: ele.POST_TICKETS_SUCCESS, payload: res.data });
+      console.log(res);
+     return dispatch({ type: ele.POST_TICKETS_SUCCESS, payload: res.data });
     })
     .catch((err) => {
-      dispatch({ type: ele.POST_TICKETS_FAILURE, payload: err });
+     return dispatch({ type: ele.POST_TICKETS_FAILURE, payload: err });
     });
 };

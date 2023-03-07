@@ -23,6 +23,9 @@ import {
   Tooltip,
   chakra,
   Heading,
+  Spinner,
+  Center,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
@@ -43,8 +46,13 @@ const HomePage = () => {
   const [marked, setMarked] = useState(false);
   const [ticket, setTicket] = useState({});
   const dispatch = useDispatch();
+  const toast = useToast();
   const [sort, setSort] = useState("asc");
-  const forceUpdate = useForceUpdate();
+
+  //Loading
+  const isLoading = useSelector((state) => {
+    return state.AppReducer.isLoading;
+  });
 
   //passing user ID - GET
   const userId = useSelector((state) => {
@@ -63,13 +71,21 @@ const HomePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const payload = ticket;
+
     const payload = ticket;
     // console.log(ticket);
-
-    dispatch(postTickets(token, payload)).then((res) =>
-      getTickets(token, userId, sort)
-    );
+    dispatch(postTickets(token, payload)).then((res) => {
+      // console.log(res.payload.msg);
+      toast(
+        {
+          title: res.payload.msg,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        }
+      )
+      dispatch(getTickets(token, userId, sort));
+    });
   };
 
   // console.log(userTickets.length);
@@ -230,9 +246,9 @@ const HomePage = () => {
         m={"auto"}
         p={10}
         borderRadius={5}
-        // border={"1px solid red"}
         mt={10}
       >
+        {/* Mapping the tickets over here */}
         {userTickets.length > 0 ? (
           userTickets?.map((ele) => {
             return (
@@ -241,99 +257,122 @@ const HomePage = () => {
                 boxShadow="rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;"
                 p={5}
               >
-                <Flex
-                  direction={"row"}
-                  justifyContent="space-between"
-                  alignItems={"center"}
-                >
-                  <Text color={"#4F4CE5"} fontSize={"14px"} fontWeight={"600"}>
-                    {ele.title}
-                  </Text>
-                  <Badge
-                    rounded="full"
-                    px="2"
-                    fontSize="0.8em"
-                    colorScheme="red"
-                  >
-                    RESOLVED
-                  </Badge>
-                </Flex>
-
-                <Flex alignItems={"center"} justifyContent={"space-between"}>
-                  <Flex gap={5}>
-                    <Box
-                      fontWeight={400}
-                      color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                      display={"flex"}
+                {isLoading ? (
+                  <Center>
+                    <Spinner />
+                  </Center>
+                ) : (
+                  <Stack>
+                    {" "}
+                    <Flex
+                      direction={"row"}
+                      justifyContent="space-between"
                       alignItems={"center"}
-                      gap={2}
                     >
-                      <Icon
-                        fontWeight={600}
-                        color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                        as={BsPeopleFill}
-                      />
-                      Haris
-                    </Box>
-                    <Box
-                      fontWeight={400}
-                      color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                      display={"flex"}
-                      alignItems={"center"}
-                      gap={2}
-                    >
-                      <Icon
-                        textTransform={"capitalize"}
-                        fontWeight={600}
-                        color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                        as={BsTag}
-                      />
-                      {ele.category}
-                    </Box>
-                    <Box display={"flex"} alignItems={"center"}>
-                      <Tooltip
-                        label="Bookmark"
-                        bg="transparent"
-                        placement={"top"}
-                        color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                        fontSize={"12px"}
+                      <Text
+                        color={"#4F4CE5"}
+                        fontSize={"14px"}
+                        fontWeight={"600"}
                       >
-                        <chakra.a href={"#"} display={"flex"}>
-                          <Button
-                            onClick={() => setMarked(!marked)}
-                            _hover={{ bgColor: "none" }}
+                        {ele.title}
+                      </Text>
+                      <Badge
+                        rounded="full"
+                        px="2"
+                        fontSize="0.8em"
+                        colorScheme="red"
+                      >
+                        RESOLVED
+                      </Badge>
+                    </Flex>
+                    <Flex
+                      alignItems={"center"}
+                      justifyContent={"space-between"}
+                    >
+                      <Flex gap={5}>
+                        <Box
+                          fontWeight={400}
+                          color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                          display={"flex"}
+                          alignItems={"center"}
+                          gap={2}
+                        >
+                          <Icon
+                            fontWeight={600}
+                            color={
+                              colorMode === "light" ? "#6B7280" : "gray.300"
+                            }
+                            as={BsPeopleFill}
+                          />
+                          Haris
+                        </Box>
+                        <Box
+                          fontWeight={400}
+                          color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                          display={"flex"}
+                          alignItems={"center"}
+                          gap={2}
+                        >
+                          <Icon
+                            textTransform={"capitalize"}
+                            fontWeight={600}
+                            color={
+                              colorMode === "light" ? "#6B7280" : "gray.300"
+                            }
+                            as={BsTag}
+                          />
+                          {ele.category}
+                        </Box>
+                        <Box display={"flex"} alignItems={"center"}>
+                          <Tooltip
+                            label="Bookmark"
+                            bg="transparent"
+                            placement={"top"}
+                            color={
+                              colorMode === "light" ? "#6B7280" : "gray.300"
+                            }
+                            fontSize={"12px"}
                           >
-                            <Icon
-                              fontSize={"18px"}
-                              fontWeight={600}
-                              color={
-                                colorMode === "light" ? "#6B7280" : "gray.300"
-                              }
-                              as={marked ? BsBookmarkFill : BsBookmark}
-                            />
-                          </Button>
-                        </chakra.a>
-                      </Tooltip>
-                    </Box>
-                  </Flex>
-                  <Box
-                    fontWeight={400}
-                    color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                    display={"flex"}
-                    alignItems={"center"}
-                    gap={2}
-                  >
-                    <Icon
-                      fontWeight={600}
-                      color={colorMode === "light" ? "#6B7280" : "gray.300"}
-                      as={BsFillCalendar2Fill}
-                    />
-                    <Text>
-                      Last Update {ele.createdAt.substring(0, 10)} -{" "}
-                      {ele.createdAt.substring(11, 19)}
-                    </Text>
-                  </Box>
-                </Flex>
+                            <chakra.a href={"#"} display={"flex"}>
+                              <Button
+                                onClick={() => setMarked(!marked)}
+                                _hover={{ bgColor: "none" }}
+                              >
+                                <Icon
+                                  fontSize={"18px"}
+                                  fontWeight={600}
+                                  color={
+                                    colorMode === "light"
+                                      ? "#6B7280"
+                                      : "gray.300"
+                                  }
+                                  as={marked ? BsBookmarkFill : BsBookmark}
+                                />
+                              </Button>
+                            </chakra.a>
+                          </Tooltip>
+                        </Box>
+                      </Flex>
+                      <Box
+                        fontWeight={400}
+                        color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                        display={"flex"}
+                        alignItems={"center"}
+                        gap={2}
+                      >
+                        <Icon
+                          fontWeight={600}
+                          color={colorMode === "light" ? "#6B7280" : "gray.300"}
+                          as={BsFillCalendar2Fill}
+                        />
+                        <Text>
+                          Last Update {ele.createdAt.substring(0, 10)} -{" "}
+                          {ele.createdAt.substring(11, 19)}
+                        </Text>
+                      </Box>
+                    </Flex>
+                  </Stack>
+                )}
               </Stack>
             );
           })
