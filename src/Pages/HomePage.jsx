@@ -38,7 +38,6 @@ import {
 import { Icon } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTickets, postTickets } from "../redux/app/action";
-import { useForceUpdate } from "framer-motion";
 
 const HomePage = () => {
   const { colorMode } = useColorMode();
@@ -69,13 +68,12 @@ const HomePage = () => {
     return state.AppReducer.ticket;
   });
 
+  //POST - Creating TIckets
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const payload = ticket;
-    // console.log(ticket);
     dispatch(postTickets(token, payload)).then((res) => {
-      // console.log(res.payload.msg);
       toast({
         title: res.payload.msg,
         status: "success",
@@ -86,8 +84,6 @@ const HomePage = () => {
     });
   };
 
-  // console.log(userTickets.length);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTicket({
@@ -97,17 +93,13 @@ const HomePage = () => {
   };
 
   const handleSort = (e) => {
-    //  console.log(e.target.value)
     setSort(e.target.value);
   };
 
+  // GET Tickets
   useEffect(() => {
     dispatch(getTickets(token, userId, sort));
   }, [userId, dispatch, token, sort]);
-
-  // console.log(userId, token);
-  // console.log(userTickets);
-  // console.log(sort);
 
   return (
     <>
@@ -263,7 +255,7 @@ const HomePage = () => {
                     <Spinner />
                   </Center>
                 ) : (
-                  <Stack>
+                  <Stack cursor={"pointer"}>
                     {" "}
                     <Flex
                       direction={"row"}

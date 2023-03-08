@@ -1,27 +1,27 @@
 import {
   Box,
-  Button,
+  // Button,
   Flex,
   Text,
   useColorMode,
   useColorModeValue,
   Stack,
   Badge,
-  Tooltip,
-  chakra,
+  // Tooltip,
+  // chakra,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import {
   BsPeopleFill,
   BsTag,
   BsFillCalendar2Fill,
-  BsBookmark,
-  BsBookmarkFill,
+  // BsBookmark,
+  // BsBookmarkFill,
 } from "react-icons/bs";
 import { Icon } from "@chakra-ui/react";
 
 const Bookmark = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   return (
     <>
       <Stack
