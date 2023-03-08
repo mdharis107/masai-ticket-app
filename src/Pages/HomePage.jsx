@@ -37,7 +37,7 @@ import {
 } from "react-icons/bs";
 import { Icon } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTickets, postTickets } from "../redux/app/action";
+import { getTickets, postBookmark, postTickets } from "../redux/app/action";
 
 const HomePage = () => {
   const { colorMode } = useColorMode();
@@ -94,6 +94,28 @@ const HomePage = () => {
 
   const handleSort = (e) => {
     setSort(e.target.value);
+  };
+
+  const handleSelect = (ele) => {
+    setMarked(!marked);
+
+    const payload = {
+      title: ele.title,
+      message: ele.message,
+      category: ele.category,
+    };
+
+    if (!marked) {
+      dispatch(postBookmark(token,payload)).then((res)=>{
+        // console.log(res.payload.msg)
+        toast({
+          title: res.payload.msg,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      })
+    }
   };
 
   // GET Tickets
@@ -328,7 +350,8 @@ const HomePage = () => {
                           >
                             <chakra.a href={"#"} display={"flex"}>
                               <Button
-                                onClick={() => setMarked(!marked)}
+                                onClick={() => handleSelect(ele)}
+                                // onClick={() => setMarked(!marked)}
                                 _hover={{ bgColor: "none" }}
                               >
                                 <Icon

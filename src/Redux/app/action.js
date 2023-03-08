@@ -19,8 +19,6 @@ export const getTickets = (token, user, order) => (dispatch) => {
 };
 
 //POST TICKETS
-
-
 export const postTickets = (token, payload) => (dispatch) => {
   // console.log(payload)
   dispatch({ type: ele.POST_TICKETS_REQUEST });
@@ -32,9 +30,31 @@ export const postTickets = (token, payload) => (dispatch) => {
     })
     .then((res) => {
       // console.log(res);
-     return dispatch({ type: ele.POST_TICKETS_SUCCESS, payload: res.data });
+      return dispatch({ type: ele.POST_TICKETS_SUCCESS, payload: res.data });
     })
     .catch((err) => {
-     return dispatch({ type: ele.POST_TICKETS_FAILURE, payload: err });
+      return dispatch({ type: ele.POST_TICKETS_FAILURE, payload: err });
     });
 };
+
+//POST BOOKMARK
+export const postBookmark = (token, payload) => (dispatch) => {
+  // console.log(payload)
+  dispatch({ type: ele.POST_BOOKMARK_REQUEST });
+  return axios
+    .post("http://localhost:8080/bookmarks/addBookmark", payload, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+    .then((res) => {
+      // console.log(res);
+      return dispatch({ type: ele.POST_BOOKMARK_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      return dispatch({ type: ele.POST_BOOKMARK_FAILURE, payload: err });
+    });
+};
+
+
+//REMOVE BOOKMARK 
