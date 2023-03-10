@@ -7,10 +7,11 @@ import {
   useColorModeValue,
   Stack,
   Badge,
+  useToast,
   // Tooltip,
   // chakra,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import {
   BsPeopleFill,
   BsTag,
@@ -19,9 +20,24 @@ import {
   // BsBookmarkFill,
 } from "react-icons/bs";
 import { Icon } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Bookmark = () => {
   const { colorMode } = useColorMode();
+  const [ticket, setTickets] = useState({});
+  const dispatch = useDispatch();
+  const toast = useToast();
+
+  //Bookmark Tickets;
+  const token = useSelector((state) => {
+    return state.AuthReducer.token.token;
+  });
+
+  //userID
+  const userId = useSelector((state) => {
+    return state.AuthReducer.token.data._id;
+  });
+
   return (
     <>
       <Stack
