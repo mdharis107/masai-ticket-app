@@ -56,5 +56,21 @@ export const postBookmark = (token, payload) => (dispatch) => {
     });
 };
 
+//REMOVE BOOKMARK
 
-//REMOVE BOOKMARK 
+//GET BOOKMARK
+export const getBookmark = (token, user) => (dispatch) => {
+  dispatch({ type: ele.GET_BOOKMARK_REQUEST });
+  axios
+    .get(`http://localhost:8080/bookmarks/${user}`, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+    .then((res) => {
+      dispatch({ type: ele.GET_BOOKMARK_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({ type: ele.GET_BOOKMARK_FAILURE, payload: err });
+    });
+};

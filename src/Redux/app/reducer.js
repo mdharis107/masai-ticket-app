@@ -4,6 +4,7 @@ const initialState = {
   ticket: [],
   isError: false,
   isLoading: false,
+  bookmarks: [],
 };
 
 export const reducer = (oldState = initialState, action) => {
@@ -25,6 +26,27 @@ export const reducer = (oldState = initialState, action) => {
         ...oldState,
         isLoading: false,
         ticket: [],
+        isError: true,
+      };
+    case ele.GET_BOOKMARK_REQUEST:
+      return {
+        ...oldState,
+        isLoading: false,
+        bookmarks: [],
+        isError: false,
+      };
+    case ele.GET_BOOKMARK_SUCCESS:
+      return {
+        ...oldState,
+        isLoading: false,
+        bookmarks: payload,
+        isError: false,
+      };
+    case ele.GET_BOOKMARK_FAILURE:
+      return {
+        ...oldState,
+        isLoading: false,
+        bookmarks: [],
         isError: true,
       };
     default:
