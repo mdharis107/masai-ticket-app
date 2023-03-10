@@ -31,9 +31,7 @@ export const reducer = (oldState = initialState, action) => {
     case ele.GET_BOOKMARK_REQUEST:
       return {
         ...oldState,
-        isLoading: false,
-        bookmarks: [],
-        isError: false,
+        isLoading: true,
       };
     case ele.GET_BOOKMARK_SUCCESS:
       return {
