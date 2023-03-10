@@ -97,6 +97,7 @@ const HomePage = () => {
   };
 
   const handleSelect = (ele) => {
+    console.log(ele);
     setMarked(!marked);
 
     const payload = {
@@ -105,17 +106,17 @@ const HomePage = () => {
       category: ele.category,
     };
 
-    if (!marked) {
-      dispatch(postBookmark(token,payload)).then((res)=>{
-        // console.log(res.payload.msg)
+    // if (!marked) {
+      dispatch(postBookmark(token, payload)).then((res) => {
+        console.log(res)
         toast({
           title: res.payload.msg,
           status: "success",
           duration: 3000,
           isClosable: true,
         });
-      })
-    }
+      });
+    // }
   };
 
   // GET Tickets
@@ -362,7 +363,8 @@ const HomePage = () => {
                                       ? "#6B7280"
                                       : "gray.300"
                                   }
-                                  as={marked ? BsBookmarkFill : BsBookmark}
+                                  // as={marked ? BsBookmarkFill : BsBookmark}
+                                  as={BsBookmark}
                                 />
                               </Button>
                             </chakra.a>
