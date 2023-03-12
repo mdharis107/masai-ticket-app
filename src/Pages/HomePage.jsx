@@ -107,15 +107,15 @@ const HomePage = () => {
     };
 
     // if (!marked) {
-      dispatch(postBookmark(token, payload)).then((res) => {
-        console.log(res)
-        toast({
-          title: res.payload.msg,
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-        });
+    dispatch(postBookmark(token, payload)).then((res) => {
+      console.log(res);
+      toast({
+        title: res.payload.msg,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
       });
+    });
     // }
   };
 

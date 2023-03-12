@@ -18,12 +18,12 @@ import React, { useEffect, useState } from "react";
 import { BsPeopleFill, BsTag, BsFillCalendar2Fill } from "react-icons/bs";
 import { Icon } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookmark } from "../redux/app/action";
-import { DeleteIcon } from '@chakra-ui/icons'
+import { deleteBookmark, getBookmark } from "../redux/app/action";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 const Bookmark = () => {
   const { colorMode } = useColorMode();
-  const [ticket, setTickets] = useState({});
+  // const [ticket, setTickets] = useState({});
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -46,7 +46,20 @@ const Bookmark = () => {
     return state.AppReducer.bookmarks;
   });
 
-  console.log(bookmarks);
+  const handleDelete = (ele) => {
+    const id = ele._id;
+    dispatch(deleteBookmark(token, id)).then((res) => {
+      // console.log(res.payload.msg);
+      toast({
+        title: res.payload.msg,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      dispatch(getBookmark(token, userId));
+    });
+  };
+
   useEffect(() => {
     dispatch(getBookmark(token, userId));
   }, [dispatch, token, userId]);
@@ -149,10 +162,10 @@ const Bookmark = () => {
                           >
                             <chakra.a href={"#"} display={"flex"}>
                               <Button
-                                // onClick={() => setMarked(!marked)}
+                                onClick={() => handleDelete(ele)}
                                 _hover={{ bgColor: "none" }}
                               >
-                                {/* <Icon
+                                <DeleteIcon
                                   fontSize={"18px"}
                                   fontWeight={600}
                                   color={
@@ -160,15 +173,7 @@ const Bookmark = () => {
                                       ? "#6B7280"
                                       : "gray.300"
                                   }
-                                  // as={marked ? BsBookmarkFill : BsBookmark}
-                                  as={BsBookmark}
-                                /> */}
-                                <DeleteIcon fontSize={"18px"}
-                                  fontWeight={600} color={
-                                    colorMode === "light"
-                                      ? "#6B7280"
-                                      : "gray.300"
-                                  } />
+                                />
                               </Button>
                             </chakra.a>
                           </Tooltip>

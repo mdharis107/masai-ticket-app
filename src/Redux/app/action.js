@@ -4,7 +4,7 @@ import axios from "axios";
 //GET Tickets
 export const getTickets = (token, user, order) => (dispatch) => {
   dispatch({ type: ele.GET_TICKET_REQUEST });
-  axios
+  return axios
     .get(`http://localhost:8080/tickets/${user}?sort=createdAt,${order}`, {
       headers: {
         Authorization: `${token}`,
@@ -56,12 +56,10 @@ export const postBookmark = (token, payload) => (dispatch) => {
     });
 };
 
-//REMOVE BOOKMARK
-
 //GET BOOKMARK
 export const getBookmark = (token, user) => (dispatch) => {
   dispatch({ type: ele.GET_BOOKMARK_REQUEST });
-  axios
+  return axios
     .get(`http://localhost:8080/bookmarks/${user}`, {
       headers: {
         Authorization: `${token}`,
@@ -72,5 +70,22 @@ export const getBookmark = (token, user) => (dispatch) => {
     })
     .catch((err) => {
       dispatch({ type: ele.GET_BOOKMARK_FAILURE, payload: err });
+    });
+};
+
+// REMOVE BOOKMARK
+export const deleteBookmark = (token, id) => (dispatch) => {
+  dispatch({ type: ele.DELETE_BOOKMARK_REQUEST });
+  return axios
+    .delete(`http://localhost:8080/bookmarks/remove/${id}`, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+    .then((res) => {
+      return dispatch({ type: ele.DELETE_BOOKMARK_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      return dispatch({ type: ele.DELETE_BOOKMARK_FAILURE, payload: err });
     });
 };
