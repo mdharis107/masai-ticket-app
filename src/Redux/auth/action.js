@@ -2,6 +2,7 @@ import * as ele from "./actionTypes";
 import axios from "axios";
 
 export const signup = (payload) => (dispatch) => {
+  // https://masai-ticket-app-backend-production.up.railway.app/user/signup
   dispatch({ type: ele.USER_SIGNUP_REQUEST });
   return axios
     .post("http://localhost:8080/user/signup", payload)
